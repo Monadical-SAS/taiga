@@ -1,0 +1,2 @@
+FROM taigaio/taiga-events:latest
+# No custom configuration needed as we're using the official image

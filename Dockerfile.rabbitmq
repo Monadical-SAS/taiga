@@ -1,0 +1,2 @@
+FROM rabbitmq:3.8-management-alpine
+# No custom configuration needed as we're using the official image

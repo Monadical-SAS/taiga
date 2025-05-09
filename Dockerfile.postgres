@@ -1,0 +1,2 @@
+FROM postgres:12.3
+# No custom configuration needed as we're using the official image
