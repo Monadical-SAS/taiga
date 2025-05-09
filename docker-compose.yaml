@@ -203,11 +203,11 @@ configs:
 
           # Frontend
           location / {
-              proxy_set_header Host $http_host;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Scheme $scheme;
-              proxy_set_header X-Forwarded-Proto $scheme;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header Host $$http_host;
+              proxy_set_header X-Real-IP $$remote_addr;
+              proxy_set_header X-Scheme $$scheme;
+              proxy_set_header X-Forwarded-Proto $$scheme;
+              proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
               proxy_redirect off;
               proxy_pass http://taiga-front/;
           }
@@ -216,20 +216,20 @@ configs:
           location /api/ {
               proxy_pass http://taiga-back:8000/api/;
               proxy_pass_header Server;
-              proxy_set_header Host $http_host;
+              proxy_set_header Host $$http_host;
               proxy_redirect off;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Scheme $scheme;
+              proxy_set_header X-Real-IP $$remote_addr;
+              proxy_set_header X-Scheme $$scheme;
           }
 
           # Admin
           location /admin/ {
               proxy_pass http://taiga-back:8000/admin/;
               proxy_pass_header Server;
-              proxy_set_header Host $http_host;
+              proxy_set_header Host $$http_host;
               proxy_redirect off;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Scheme $scheme;
+              proxy_set_header X-Real-IP $$remote_addr;
+              proxy_set_header X-Scheme $$scheme;
           }
 
           # Static
@@ -251,11 +251,11 @@ configs:
           }
 
           location /media/ {
-              proxy_set_header Host $http_host;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Scheme $scheme;
-              proxy_set_header X-Forwarded-Proto $scheme;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header Host $$http_host;
+              proxy_set_header X-Real-IP $$remote_addr;
+              proxy_set_header X-Scheme $$scheme;
+              proxy_set_header X-Forwarded-Proto $$scheme;
+              proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
               proxy_pass http://taiga-protected:8003/;
               proxy_redirect off;
           }
@@ -264,9 +264,9 @@ configs:
           location /events {
               proxy_pass http://taiga-events:8888/events;
               proxy_http_version 1.1;
-              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Upgrade $$http_upgrade;
               proxy_set_header Connection "upgrade";
-              proxy_set_header Host $host;
+              proxy_set_header Host $$host;
               proxy_connect_timeout 7d;
               proxy_send_timeout 7d;
               proxy_read_timeout 7d;
