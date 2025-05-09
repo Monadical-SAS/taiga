@@ -195,7 +195,7 @@ configs:
   nginx_config:
     content: |
       server {
-          listen 80 default_server;
+          server_name taiga.app.monadical.io;
 
           client_max_body_size 100M;
           charset utf-8;
