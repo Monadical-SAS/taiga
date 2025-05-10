@@ -203,6 +203,19 @@ configs:
 
           # Frontend
           location / {
+              add_header 'Access-Control-Allow-Origin' '*';
+              add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE, PATCH';
+              add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+              # Handle OPTIONS method separately for CORS preflight requests
+              if ($$request_method = OPTIONS) {
+                  add_header 'Access-Control-Allow-Origin' '*';
+                  add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE, PATCH';
+                  add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+                  add_header 'Access-Control-Max-Age' 1728000;
+                  add_header 'Content-Type' 'text/plain charset=UTF-8';
+                  add_header 'Content-Length' 0;
+                  return 204;
+              }
               proxy_set_header Host $$http_host;
               proxy_set_header X-Real-IP $$remote_addr;
               proxy_set_header X-Scheme $$scheme;
@@ -237,6 +250,7 @@ configs:
 
           # Admin
           location /admin/ {
+              
               proxy_pass http://taiga-back:8000/admin/;
               proxy_pass_header Server;
               proxy_set_header Host $$http_host;
